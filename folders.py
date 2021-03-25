@@ -23,27 +23,30 @@ class Folders(Resource):
     #         charset='utf8mb4',
     #         cursorclass= pymysql.cursors.DictCursor)
 
-    #     sql = 'getUser'
-    #     try:
-    #         cursor = dbConnection.cursor()
-    #         cursor.callproc(sql, [session['email']]) # stored procedure, arguments
-    #         user = cursor.fetchone()
-    #     except:
-    #         abort(500) # Nondescript server error
-    #     finally:
-    #         cursor.close()
-    #         # dbConnection.close()
-    #     print('user=',user)
-    #     sql = 'getFolders'
-    #     try:
-    #         cursor = dbConnection.cursor()
-    #         cursor.callproc(sql, [user['root']]) # stored procedure, no arguments
-    #         rows = cursor.fetchall() # get all the results
-    #     except:
-    #         abort(500) # Nondescript server error
-    #     finally:
-    #         cursor.close()
-    #         dbConnection.close()
+    #     sql = 'findFolderOwner'
+	#		try:
+	#			cursor = dbConnection.cursor()
+	#			cursor.callproc(sql,[parent]) # stored procedure, with arguments
+	#			owner = cursor.fetchone()
+	#		except pymysql.err.InternalError:
+	#			return make_response(jsonify({'status': 'no such parent folder'}), 400)
+	#		except:
+	#			abort(500) # Nondescript server error
+	#		finally:
+	#			cursor.close()
+    #     print('Folder Owner =', owner)
+	
+    #     sql = 'getFolder'
+	#		if(owner == session['email'])
+    #     		try:
+    #        		 cursor = dbConnection.cursor()
+    #        		 cursor.callproc(sql, [user['root']]) # stored procedure, no arguments
+    #        		 rows = cursor.fetchall() # get all the results
+    #     		except:
+    #      	   abort(500) # Nondescript server error
+    #     		finally:
+    #        		 cursor.close()
+    #        		 dbConnection.close()
     #     return make_response(jsonify({'folders': rows}), 200) # turn set into json and return it
 
     def post(self, email):
