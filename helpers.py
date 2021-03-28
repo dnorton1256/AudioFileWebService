@@ -34,9 +34,34 @@ def check_if_admin():
             abort(500) # Nondescript server error
         finally:
             cursor.close()
-    dbConnection.close()
+            dbConnection.close()
     print('as=',session['admin_status'])
 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in settings.ALLOWED_EXTENSIONS
+
+def check_if_unique(enteredEmail):
+    dbConnection = pymysql.connect(
+        settings.MYSQL_HOST,
+        settings.MYSQL_USER,
+        settings.MYSQL_PASSWD,
+        settings.MYSQL_DB,
+        charset='utf8mb4',
+        cursorclass= pymysql.cursors.DictCursor)
+    
+    sql = 'getUser'
+    try:
+        cursor = dbConnection.cursor()
+        cursor.callproc(sql, [session['email']])
+        row = cursor.fetchone()
+    expect:
+        abort(500)
+    finally:
+        cursor.close()
+        dbConnection.close()
+    
+    if(row == ""):
+        return false
+    else:
+        return true
