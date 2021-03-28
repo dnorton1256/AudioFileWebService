@@ -2,6 +2,8 @@ from flask import Flask, jsonify, abort, request, make_response, session
 from flask_restful import Resource, Api, reqparse
 from flask_session import Session
 from helpers import check_if_admin
+from helpers import check_if_unique
+from folders import post
 import json
 import pymysql.cursors
 import settings # Our server and db settings, stored in settings.py
@@ -115,3 +117,32 @@ class User(Resource):
             session.pop('admin_status',None)
 
         return make_response(jsonify({'status':'deleted '+email}), 200)
+    
+#    def post(self, email, status):
+        
+#        if(!check_if_unique(email)):
+            
+#            dbConnection = pymysql.connect(
+#            settings.MYSQL_HOST,
+#            settings.MYSQL_USER,
+#            settings.MYSQL_PASSWD,
+#            settings.MYSQL_DB,
+#            charset='utf8mb4',
+#            cursorclass= pymysql.cursors.DictCursor)
+            
+#            sql = 'addUser'
+            
+#            try:
+#                cursor = dbConnection.cursor()
+#                sqlArgs = (email, status)
+#                cursor.callproc(sql, sqlArgs)
+#                dbConnection.commit()
+#            expect:
+#                abort(500)
+#            finally:
+#                cursor.close()
+            
+#            folders.post(email)
+           
+#        else:
+#            print('User email is already in use.')
