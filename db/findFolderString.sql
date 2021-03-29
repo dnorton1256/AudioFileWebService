@@ -1,3 +1,4 @@
+/* This SQL returns a folder usinf entered User Email and a string that would be saved in the folder */
 DELIMITER //
 DROP PROCEDURE IF EXISTS findFolderString //
 CREATE PROCEDURE findFolderString
